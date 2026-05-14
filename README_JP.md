@@ -2,6 +2,8 @@
 
 Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を効率的に一括設定・自動補正するためのエディタ拡張ツールです。特にBakery等のライトマッパーを使用して、大規模な背景シーンを構築する際に威力を発揮します。
 
+> **⚠️ 注意: 自動補正機能を使用するには、対象オブジェクト（またはその親階層）にBakeryの `BakeryLightmapGroupSelector` コンポーネントがアタッチされている必要があります。**
+
 <img src="images/ui_main.webp" width="35%">
 
 ## 最新の更新 (v1.0.0)
@@ -13,7 +15,7 @@ Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を
 大規模な背景シーンのライトマップベイクにおいて、オブジェクトごとのライトマップ解像度（密度）を手作業で調整するのは非常に手間がかかります。本ツールは以下の2つのアプローチでこの作業を効率化します。
 
 1. **手動一括設定**: フィルター機能を使って、特定の名前を持つオブジェクト群の `Scale In Lightmap` を一気に変更します。
-2. **UVスケール自動補正**: 実際の3Dメッシュの「表面積」を計算し、大きさの異なるオブジェクト同士のライトマップ密度が均一になるよう自動で計算・適用します。
+2. **UVスケール自動補正**: 実際の3Dメッシュの「表面積」を計算し、大きさの異なるオブジェクト同士のライトマップ密度が均一になるよう自動で計算・適用します。（※対象オブジェクト、またはその親階層にBakeryの `BakeryLightmapGroupSelector` が設定されている必要があります）
 
 ---
 
@@ -44,7 +46,9 @@ Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を
 
 ### 2. UVスケール自動補正（オブジェクトの面積に合わせて自然に調整したい時）
 
-同じライトマップグループ（`BakeryLightmapGroupSelector`等）に属するオブジェクト間で、それぞれの「3D上の表面積」を比較し、自動的に最適な `Scale In Lightmap` 値を割り当てます。
+> **⚠️ 必須条件**: この機能は Bakery アセットに依存しています。比較対象となる各オブジェクト（またはその親階層）に `BakeryLightmapGroupSelector` がアタッチされており、同じLightmap Groupが割り当てられている必要があります。
+
+同じライトマップグループに属するオブジェクト間で、それぞれの「3D上の表面積」を比較し、自動的に最適な `Scale In Lightmap` 値を割り当てます。
 
 ![自動補正UI](images/ui_auto_correction.webp)
 
@@ -53,7 +57,7 @@ Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を
 
 <table width="100%">
   <tr>
-    <th width="33%" align="center">No Correction</th>
+    <th width="33%" align="center">補正なし</th>
     <th width="33%" align="center">0.5</th>
     <th width="33%" align="center">0.7</th>
   </tr>

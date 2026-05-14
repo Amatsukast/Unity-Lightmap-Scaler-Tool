@@ -2,6 +2,8 @@
 
 An Editor Extension tool for efficiently bulk-setting and auto-correcting the `Scale In Lightmap` values for multiple objects in the Unity Editor. It is especially powerful when building large-scale background scenes using lightmappers like Bakery.
 
+> **⚠️ Note: The Auto UV Scale Correction feature requires Bakery's `BakeryLightmapGroupSelector` component to be attached to the target objects (or their parent hierarchy).**
+
 <img src="images/ui_main_en.webp" width="35%">
 
 ## What's New (v1.0.0)
@@ -13,7 +15,7 @@ An Editor Extension tool for efficiently bulk-setting and auto-correcting the `S
 Manually adjusting the lightmap resolution (density) for each object when baking lightmaps for large background scenes is extremely tedious. This tool streamlines this process using two approaches:
 
 1. **Manual Batch Setting**: Bulk-change the `Scale In Lightmap` for groups of objects with specific names using a filter feature.
-2. **Auto UV Scale Correction**: Calculates the actual "surface area" of the 3D meshes and automatically assigns values so that objects of different sizes have a uniform lightmap density.
+2. **Auto UV Scale Correction**: Calculates the actual "surface area" of the 3D meshes and automatically assigns values so that objects of different sizes have a uniform lightmap density. (_Note: This feature requires Bakery's `BakeryLightmapGroupSelector` component to be attached to the target objects or their parent hierarchy._)
 
 ---
 
@@ -44,7 +46,9 @@ Applies a specific scale value in bulk to all `MeshRenderer`s on the selected ob
 
 ### 2. Auto UV Scale Correction (For naturally adjusting based on object surface area)
 
-Compares the "3D surface area" among objects belonging to the same lightmap group (like `BakeryLightmapGroupSelector`) and automatically assigns the optimal `Scale In Lightmap` value.
+> **⚠️ Requirement**: This feature relies on the Bakery asset. All objects to be compared must have the `BakeryLightmapGroupSelector` component attached (either directly or on a parent object) and be assigned to the same Lightmap Group.
+
+Compares the "3D surface area" among objects belonging to the same lightmap group and automatically assigns the optimal `Scale In Lightmap` value.
 
 ![Auto Correction UI](images/ui_auto_correction_en.webp)
 
