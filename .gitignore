@@ -1,0 +1,19 @@
+# Releases and Backups
+releases/
+バックアップ/
+*.zip
+
+# OS Generated
+.DS_Store
+Thumbs.db
+
+# Unity Temp
+*.csproj
+*.sln
+*.userprefs
+*.pidb
+*.booproj
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
