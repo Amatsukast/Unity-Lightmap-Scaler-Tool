@@ -22,11 +22,11 @@ Manually adjusting the lightmap resolution (density) for each object when baking
 
 ## Installation
 
-1. Download the latest release ZIP file (e.g., `LightmapScalerTool_EN_v1.0.0.zip`) from the GitHub Releases page and extract it.
+1. Download the latest release ZIP file (e.g., `LightmapScalerTool_EN_v1.1.0.zip`) from the GitHub Releases page and extract it.
 2. Place the extracted `LightmapScalerTool_EN.cs` inside a folder named **`Editor`** anywhere within your Unity project's `Assets` folder. (Example: `Assets/Editor/Tools/`)
 3. Once compiled, **`Tools > Lightmap Scaler Tool`** will be added to the top menu in Unity, and it will be ready to use.
 
-- Note: If you prefer the Japanese version, please download `LightmapScalerTool_JP_vX.X.X.zip`. The features are completely identical.
+- Note: If you prefer the Japanese version, please download `LightmapScalerTool_JP_v1.1.0.zip`. The features are completely identical.
 
 ---
 

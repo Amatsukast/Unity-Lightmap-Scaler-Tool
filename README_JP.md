@@ -22,11 +22,11 @@ Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を
 
 ## インストール方法
 
-1. GitHubのReleasesページから、最新のリリース用ZIPファイル（例: `LightmapScalerTool_JP_v1.0.0.zip`）をダウンロードして解凍します。
+1. GitHubのReleasesページから、最新のリリース用ZIPファイル（例: `LightmapScalerTool_JP_v1.1.0.zip`）をダウンロードして解凍します。
 2. 中に入っている `LightmapScalerTool_JP.cs` を、Unityプロジェクト内の **`Editor` という名前のフォルダ内**に配置します。（例：`Assets/Editor/Tools/`）
 3. コンパイルが完了すると、Unity上部のメニューに **`Tools > ライトマップスケール調整ツール`** が追加され、使用可能になります。
 
-※ 英語版をご希望の場合は、`LightmapScalerTool_EN_vX.X.X.zip` をダウンロードしてください。機能は完全に同一です。
+※ 英語版をご希望の場合は、`LightmapScalerTool_EN_v1.1.0.zip` をダウンロードしてください。機能は完全に同一です。
 
 ---
 
