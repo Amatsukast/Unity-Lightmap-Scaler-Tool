@@ -124,13 +124,13 @@ public class LightmapScalerTool_JP : EditorWindow
             "常に上書き",
             "小さすぎるものだけ上書き",
             "大きすぎるものだけ上書き",
-            "必要な場合のみ上書き"
+            "スマート上書き"
         };
         string overwriteHint =
-            "常に上書き：\n現在値を無視して、全ての対象に上書き\n\n" +
-            "小さすぎるものだけ上書き：\n現在値が補正結果より小さい対象のみ拡大\n\n" +
-            "大きすぎるものだけ上書き：\n現在値が補正結果より大きい対象のみ縮小\n\n" +
-            "必要な場合のみ上書き：\n現在値が補正結果と異なり、かつ補正結果が有効な場合のみ上書き";
+            "常に上書き：\n現在値を無視して、全ての対象を補正値で上書きします。\n\n" +
+            "小さすぎるものだけ上書き：\n現在値が補正値より小さい対象のみ、拡大するように上書きします。\n\n" +
+            "大きすぎるものだけ上書き：\n現在値が補正値より大きい対象のみ、縮小するように上書きします。\n\n" +
+            "スマート上書き：\n拡大・縮小の両方を補正します。ただし、すでに補正目標を上回る（または下回る）設定がされているオブジェクトは、ユーザーの意図的な調整とみなして維持します。";
 
         float prevLabelWidth2 = EditorGUIUtility.labelWidth;
         EditorGUIUtility.labelWidth = 100;
@@ -220,22 +220,23 @@ public class LightmapScalerTool_JP : EditorWindow
     {
         const float EPSILON = 1e-6f;
 
-        if (Mathf.Approximately(target, 1f))
-            return false; // 変化なし
+        // 現在値と目標値が同じなら無駄な更新を防ぐ
+        if (Mathf.Approximately(current, target))
+            return false;
 
         // Always以外のときだけ、ユーザー値優先判定を行う
         if (overwriteMode != OverwriteMode.Always)
         {
-            // 拡大方向
-            if (target > 1f && current - target > EPSILON)
+            // 拡大方向（>= にすることで target=1.0 の穴を塞ぐ）
+            if (target >= 1f && current - target > EPSILON)
                 return false; // さらに拡大している場合は上書きしない
 
-            // 縮小方向
-            if (target < 1f && target - current > EPSILON)
+            // 縮小方向（<= にすることで target=1.0 の穴を塞ぐ）
+            if (target <= 1f && target - current > EPSILON)
                 return false; // さらに縮小している場合は上書きしない
         }
 
-        // ここから下は従来の上書き条件
+        // 各モードの上書き条件
         switch (overwriteMode)
         {
             case OverwriteMode.Always:
@@ -245,7 +246,7 @@ public class LightmapScalerTool_JP : EditorWindow
             case OverwriteMode.OnlyShrink:
                 return current > target + EPSILON;
             case OverwriteMode.IfNeeded:
-                return !Mathf.Approximately(current, target);
+                return true; // 保護ロジックを通過したものは上書きする
             default:
                 return false;
         }

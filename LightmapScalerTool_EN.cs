@@ -124,13 +124,13 @@ public class LightmapScalerTool_EN : EditorWindow
             "Always Overwrite",
             "Overwrite Only If Too Small (Expand)",
             "Overwrite Only If Too Large (Shrink)",
-            "Overwrite Only If Needed"
+            "Smart Overwrite"
         };
         string overwriteHint =
-            "Always Overwrite:\nIgnores the current value and overwrites all targets.\n\n" +
-            "Overwrite Only If Too Small:\nExpands scale only if the current value is smaller than the calculated value.\n\n" +
-            "Overwrite Only If Too Large:\nShrinks scale only if the current value is larger than the calculated value.\n\n" +
-            "Overwrite Only If Needed:\nOverwrites only if the current value differs and the calculated value is valid.";
+            "Always Overwrite:\nIgnores the current value and overwrites all targets with the calculated value.\n\n" +
+            "Overwrite Only If Too Small:\nOverwrites only targets where the current value is smaller than the calculated value, expanding them.\n\n" +
+            "Overwrite Only If Too Large:\nOverwrites only targets where the current value is larger than the calculated value, shrinking them.\n\n" +
+            "Smart Overwrite:\nCorrects scale in both directions (expand and shrink). However, any object already set beyond the target value (above or below) is treated as an intentional manual adjustment and will be preserved.";
 
         float prevLabelWidth2 = EditorGUIUtility.labelWidth;
         EditorGUIUtility.labelWidth = 140;
@@ -217,18 +217,23 @@ public class LightmapScalerTool_EN : EditorWindow
     {
         const float EPSILON = 1e-6f;
 
-        if (Mathf.Approximately(target, 1f))
+        // Skip if current and target are already the same
+        if (Mathf.Approximately(current, target))
             return false;
 
+        // Protect user's manual settings (active for all modes except Always)
         if (overwriteMode != OverwriteMode.Always)
         {
-            if (target > 1f && current - target > EPSILON)
+            // Expand direction (>= closes the target=1.0 hole)
+            if (target >= 1f && current - target > EPSILON)
                 return false;
 
-            if (target < 1f && target - current > EPSILON)
+            // Shrink direction (<= closes the target=1.0 hole)
+            if (target <= 1f && target - current > EPSILON)
                 return false;
         }
 
+        // Per-mode overwrite conditions
         switch (overwriteMode)
         {
             case OverwriteMode.Always:
@@ -238,7 +243,7 @@ public class LightmapScalerTool_EN : EditorWindow
             case OverwriteMode.OnlyShrink:
                 return current > target + EPSILON;
             case OverwriteMode.IfNeeded:
-                return !Mathf.Approximately(current, target);
+                return true; // Passed protection logic, so overwrite
             default:
                 return false;
         }

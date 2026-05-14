@@ -6,8 +6,9 @@ An Editor Extension tool for efficiently bulk-setting and auto-correcting the `S
 
 <img src="images/ui_main_en.webp" width="35%">
 
-## What's New (v1.0.0)
+## What's New (v1.1.0)
 
+- **v1.1.0**: Renamed "Overwrite Only If Needed" to **"Smart Overwrite"**. Fixed a bug in overwrite condition logic for cases where the calculated target scale is `1.0`.
 - **v1.0.0**: Initial release! Implemented Manual Batch Setting and surface-area-based Auto UV Scale Correction.
 
 ## Overview
@@ -39,10 +40,27 @@ Applies a specific scale value in bulk to all `MeshRenderer`s on the selected ob
 
 ![Batch Setting UI](images/ui_batch_setting_en.webp)
 
+- **Include Name Filter** _(comma-separated, multiple values supported)_  
+  Only objects whose name contains the specified string(s) will be targeted. (e.g. `Wall,Floor`)
+
+- **Exclude Name Filter** _(comma-separated, multiple values supported)_  
+  Objects whose name contains the specified string(s) will be excluded from the target.
+
+- **Case Sensitive**  
+  When enabled, filter matching becomes strict. (e.g. `wall` ≠ `Wall`)
+
+- **Exclude Inactive Objects**  
+  When enabled, disabled objects and their children are excluded from processing.
+
+- **Batch Scale Value**  
+  The `Scale In Lightmap` value to apply to the target `MeshRenderer`s.
+
 - **Instructions**:
   1. Select the target parent object(s) in the Hierarchy (multiple selection supported).
   2. Enter the "Include Name Filter" or "Exclude Name Filter" if necessary (multiple terms can be comma-separated, e.g., `Wall,Floor`).
   3. Enter the "Batch Scale Value" and click the "Apply Batch Setting" button.
+
+> 📝 Filters use **partial matching**. (e.g. `Wall` will also match `Wall_01` and `MyWall`)
 
 ### 2. Auto UV Scale Correction (For naturally adjusting based on object surface area)
 
@@ -52,8 +70,8 @@ Compares the "3D surface area" among objects belonging to the same lightmap grou
 
 ![Auto Correction UI](images/ui_auto_correction_en.webp)
 
-- **UV Area Correction (Gamma Value) (0.01 - 1.0)**:
-  Adjusts the strength of the correction. Values closer to 1.0 equalize the area differences more strongly, while values closer to 0 maintain the original ratios.
+- **UV Area Correction (Gamma Value) (0.01 - 1.0)**:  
+  Adjusts the strength of the correction. Values closer to 1.0 equalize the area differences more strongly (at 1.0, all objects receive the same area). Values closer to 0 maintain the original ratios.
 
 <table width="100%">
   <tr>
@@ -68,10 +86,25 @@ Compares the "3D surface area" among objects belonging to the same lightmap grou
   </tr>
 </table>
 
+- **Overwrite Mode** _(4 options)_:  
+  Controls which objects the calculated correction value is applied to.
+
+  | Mode                            | Behavior                                                                                                                                                                                             |
+  | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | **Always Overwrite**            | Ignores the current value and overwrites all targets with the calculated value                                                                                                                       |
+  | **Overwrite Only If Too Small** | Overwrites only targets where the current value is smaller than the calculated value, expanding them                                                                                                 |
+  | **Overwrite Only If Too Large** | Overwrites only targets where the current value is larger than the calculated value, shrinking them                                                                                                  |
+  | **Smart Overwrite**             | Corrects scale in both directions (expand and shrink). However, any object already set beyond the target value (above or below) is treated as an intentional manual adjustment and will be preserved |
+
+- **Exclude Inactive Objects**:  
+  When enabled, objects that are disabled in the scene will be excluded from correction.
+
 - **Instructions**:
   1. Select **exactly one** `MeshRenderer` that belongs to the Lightmap Group you want to correct.
   2. Set the "UV Area Correction (Gamma Value)" and "Overwrite Mode".
   3. Click the "Execute Scale Correction" button.
+
+> 📝 The correction results (number corrected / excluded) are displayed in the status message at the top of the tool window.
 
 ---
 
@@ -129,7 +162,7 @@ This auto-correction isn't just a simple scale alignment; it uses gamma correcti
 A. Yes, all operations support Unity's standard `Undo` system. You can easily revert to the previous state using `Ctrl+Z`.
 
 **Q. Will it overwrite values for objects I manually fine-tuned?**  
-A. By changing the "Overwrite Mode" to "Only expand if too small" or "Only overwrite if needed", you can protect your intentionally set manual values while only raising the values of parts that are lacking.
+A. By changing the "Overwrite Mode" to "Only expand if too small" or "Smart Overwrite", you can protect your intentionally set extreme manual values while correcting the parts that need adjustment.
 
 **Q. Are inactive objects included in the correction target?**  
 A. They are excluded by default, but by unchecking the "Exclude Inactive Objects" option, you can include disabled objects in the calculation target.
