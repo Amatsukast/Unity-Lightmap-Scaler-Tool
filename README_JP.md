@@ -2,7 +2,7 @@
 
 Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を効率的に一括設定・自動補正するためのエディタ拡張ツールです。特にBakery等のライトマッパーを使用して、大規模な背景シーンを構築する際に威力を発揮します。
 
-<img src="images/ui_main.webp" width="300">
+<img src="images/ui_main.webp" width="35%">
 
 ## 最新の更新 (v1.0.0)
 
@@ -51,9 +51,18 @@ Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を
 - **スケール補正値（0.01〜1.0）**:
   補正の強さを調整します。値が1.0に近いほど面積のばらつきを均等化します。
 
-|                 補正なし                  |                0.5                 |                0.7                 |
-| :---------------------------------------: | :--------------------------------: | :--------------------------------: |
-| ![補正なし](images/gamma_basic_none.webp) | ![0.5](images/gamma_basic_05.webp) | ![0.7](images/gamma_basic_07.webp) |
+<table width="100%">
+  <tr>
+    <th width="33%" align="center">No Correction</th>
+    <th width="33%" align="center">0.5</th>
+    <th width="33%" align="center">0.7</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/gamma_basic_none.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_basic_05.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_basic_07.webp" width="100%"></td>
+  </tr>
+</table>
 
 - **操作手順**:
   1. 補正したいLightmap Groupに属するMeshRendererを**1つだけ**選択します。
@@ -73,14 +82,40 @@ Unityエディタ上で、複数オブジェクトの `Scale In Lightmap` 値を
 
 ※同一形状でスケールのみが異なるオブジェクトを用意して検証した例です。左側がベイク前の配置（検証環境）、右側がベイク後（ライトマップの適用結果）を示しています。この環境において、ガンマ値を変更するとライトマップの割り当て面積がどのように変化するかを以下にまとめました。
 
-|                       ベイク前                        |                       ベイク後                       |
-| :---------------------------------------------------: | :--------------------------------------------------: |
-| <img src="images/mesh_setup_before.webp" width="300"> | <img src="images/mesh_setup_after.webp" width="300"> |
+<table width="40%">
+  <tr>
+    <th align="center">ベイク前</th>
+    <th align="center">ベイク後</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/mesh_setup_before.webp" width="100%"></td>
+    <td align="center"><img src="images/mesh_setup_after.webp" width="100%"></td>
+  </tr>
+</table>
 
-|                    補正前                     |                    0.2                     |                    0.5                     |                    0.7                     |                    1.0                     |
-| :-------------------------------------------: | :----------------------------------------: | :----------------------------------------: | :----------------------------------------: | :----------------------------------------: |
-|  ![補正前](images/gamma_detail_before.webp)   |    ![0.2](images/gamma_detail_02.webp)     |    ![0.5](images/gamma_detail_05.webp)     |    ![0.7](images/gamma_detail_07.webp)     |    ![1.0](images/gamma_detail_10.webp)     |
-| ![数値前](images/inspector_value_before.webp) | ![数値0.2](images/inspector_value_02.webp) | ![数値0.5](images/inspector_value_05.webp) | ![数値0.7](images/inspector_value_07.webp) | ![数値1.0](images/inspector_value_10.webp) |
+<table width="100%">
+  <tr>
+    <th width="20%" align="center">補正前</th>
+    <th width="20%" align="center">0.2</th>
+    <th width="20%" align="center">0.5</th>
+    <th width="20%" align="center">0.7</th>
+    <th width="20%" align="center">1.0</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/gamma_detail_before.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_02.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_05.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_07.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_10.webp" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/inspector_value_before.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_02.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_05.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_07.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_10.webp" width="100%"></td>
+  </tr>
+</table>
 
 ---
 

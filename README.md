@@ -2,7 +2,7 @@
 
 An Editor Extension tool for efficiently bulk-setting and auto-correcting the `Scale In Lightmap` values for multiple objects in the Unity Editor. It is especially powerful when building large-scale background scenes using lightmappers like Bakery.
 
-<img src="images/ui_main_en.webp" width="300">
+<img src="images/ui_main_en.webp" width="35%">
 
 ## What's New (v1.0.0)
 
@@ -51,9 +51,18 @@ Compares the "3D surface area" among objects belonging to the same lightmap grou
 - **UV Area Correction (Gamma Value) (0.01 - 1.0)**:
   Adjusts the strength of the correction. Values closer to 1.0 equalize the area differences more strongly, while values closer to 0 maintain the original ratios.
 
-|                 No Correction                  |                0.5                 |                0.7                 |
-| :--------------------------------------------: | :--------------------------------: | :--------------------------------: |
-| ![No Correction](images/gamma_basic_none.webp) | ![0.5](images/gamma_basic_05.webp) | ![0.7](images/gamma_basic_07.webp) |
+<table width="100%">
+  <tr>
+    <th width="33%" align="center">No Correction</th>
+    <th width="33%" align="center">0.5</th>
+    <th width="33%" align="center">0.7</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/gamma_basic_none.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_basic_05.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_basic_07.webp" width="100%"></td>
+  </tr>
+</table>
 
 - **Instructions**:
   1. Select **exactly one** `MeshRenderer` that belongs to the Lightmap Group you want to correct.
@@ -73,14 +82,40 @@ This auto-correction isn't just a simple scale alignment; it uses gamma correcti
 
 - Here is an example of testing objects with the exact same shape but different scales. The left shows the setup before baking (testing environment), and the right shows the result after baking (lightmap applied). Below that, you can see how the allocated lightmap area changes when the gamma value is adjusted in this environment.
 
-|                  Before Bake (Setup)                  |                 After Bake (Result)                  |
-| :---------------------------------------------------: | :--------------------------------------------------: |
-| <img src="images/mesh_setup_before.webp" width="300"> | <img src="images/mesh_setup_after.webp" width="300"> |
+<table width="40%">
+  <tr>
+    <th align="center">Before Bake (Setup)</th>
+    <th align="center">After Bake (Result)</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/mesh_setup_before.webp" width="100%"></td>
+    <td align="center"><img src="images/mesh_setup_after.webp" width="100%"></td>
+  </tr>
+</table>
 
-|                  Before Correction                  |                     0.2                      |                     0.5                      |                     0.7                      |                     1.0                      |
-| :-------------------------------------------------: | :------------------------------------------: | :------------------------------------------: | :------------------------------------------: | :------------------------------------------: |
-|     ![Before](images/gamma_detail_before.webp)      |     ![0.2](images/gamma_detail_02.webp)      |     ![0.5](images/gamma_detail_05.webp)      |     ![0.7](images/gamma_detail_07.webp)      |     ![1.0](images/gamma_detail_10.webp)      |
-| ![Value Before](images/inspector_value_before.webp) | ![Value 0.2](images/inspector_value_02.webp) | ![Value 0.5](images/inspector_value_05.webp) | ![Value 0.7](images/inspector_value_07.webp) | ![Value 1.0](images/inspector_value_10.webp) |
+<table width="100%">
+  <tr>
+    <th width="20%" align="center">Before Correction</th>
+    <th width="20%" align="center">0.2</th>
+    <th width="20%" align="center">0.5</th>
+    <th width="20%" align="center">0.7</th>
+    <th width="20%" align="center">1.0</th>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/gamma_detail_before.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_02.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_05.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_07.webp" width="100%"></td>
+    <td align="center"><img src="images/gamma_detail_10.webp" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/inspector_value_before.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_02.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_05.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_07.webp" width="100%"></td>
+    <td align="center"><img src="images/inspector_value_10.webp" width="100%"></td>
+  </tr>
+</table>
 
 ---
 
