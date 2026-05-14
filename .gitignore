@@ -1,6 +1,5 @@
-# Releases and Backups
 releases/
-バックアップ/
+backup/
 *.zip
 
 # OS Generated
