@@ -1,5 +1,7 @@
 # Unity Lightmap Scaler Tool
 
+[English](README.md) | [日本語](README_JP.md)
+
 An Editor Extension tool for efficiently bulk-setting and auto-correcting the `Scale In Lightmap` values for multiple objects in the Unity Editor. It is especially powerful when building large-scale background scenes using lightmappers like Bakery.
 
 > **⚠️ Note: The Auto UV Scale Correction feature requires Bakery's `BakeryLightmapGroupSelector` component to be attached to the target objects (or their parent hierarchy).**
